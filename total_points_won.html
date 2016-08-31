@@ -12,14 +12,10 @@
   stroke: #000;
 }
 
-.x.axis path {
-  display: none;
-}
-
 </style>
+
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
-
 <script>
 
 var n = 2, // number of samples
@@ -28,11 +24,10 @@ var n = 2, // number of samples
 var data = d3.range(m).map(function() { return d3.range(n).map(Math.random); });
 
 var dataset = []
-d3.csv("data.csv", function(data) {
-/*   dataset = data.map(function(d) { return [ d["State"] ]; });
-   console.log(dataset)*/
+d3.csv("usopen.csv", function(data) {
+   dataset = data.map(function(d) { return [ d["winner_totalPointWon"] ]; });
+   //alert(dataset);
 });
-
 
 var margin = {top: 20, right: 30, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
@@ -42,7 +37,7 @@ var color = d3.scale.ordinal()
     .range(["#636363","#636363", "#5C5F61","#5C5F61", "#555C60","#555C60", "#4E595F", "#4E595F", "#47555E", "#47555E", "#41525D", "#41525D", "#3A4F5C", "#3A4F5C", "#334B5B", "#334B5B", "#2C485A", "#2C485A", "#254559", "#254559"]);
 
 var y = d3.scale.linear()
-    .domain([30, 200])
+    .domain(d3.range(m))
     .range([height, 0]);
 
 var x0 = d3.scale.ordinal()
