@@ -1,91 +1,96 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
-
-.axis text {
-  font: 12px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-}
-
+  .axis text {
+    font: 12px sans-serif;
+  }
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+  }
 </style>
 
 <body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script>
+  <svg class="chart"></svg>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script>
+    var n = 2, m = 10;
+    d3.csv("usopen.csv", type, function(data) {
 
-var n = 2, // number of samples
-    m = 10; // number of series
+     var margin = {top: 20, right: 30, bottom: 30, left: 40},
+     width = 960 - margin.left - margin.right,
+     height = 500 - margin.top - margin.bottom;
 
-var data = d3.range(m).map(function() { return d3.range(n).map(Math.random); });
+     var color = d3.scale.ordinal()
+     .range(["#636363", "#5C5F61", "#555C60", "#4E595F", "#47555E", "#41525D", "#3A4F5C", "#334B5B", "#2C485A", "#254559"]);
 
-var dataset = []
-d3.csv("usopen.csv", function(data) {
-   dataset = data.map(function(d) { return [ d["winner_totalPointWon"] ]; });
-   //alert(dataset);
-});
+     var y = d3.scale.linear()
+     .domain([0, d3.max(data, function(d) { return d.winner_totalPointWon; })])
+     .range([height, 0]);
 
-var margin = {top: 20, right: 30, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+     var x0 = d3.scale.ordinal()
+     .domain(d3.range(n))
+     .rangeBands([0, width], .2);
 
-var color = d3.scale.ordinal()
-    .range(["#636363","#636363", "#5C5F61","#5C5F61", "#555C60","#555C60", "#4E595F", "#4E595F", "#47555E", "#47555E", "#41525D", "#41525D", "#3A4F5C", "#3A4F5C", "#334B5B", "#334B5B", "#2C485A", "#2C485A", "#254559", "#254559"]);
+     var xlabels = d3.scale.ordinal()
+     .domain(["MEN", "WOMEN"])
+     .rangeBands([0, width], .2);
 
-var y = d3.scale.linear()
-    .domain(d3.range(m))
-    .range([height, 0]);
+     var x1 = d3.scale.ordinal()
+     .domain(d3.range(m))
+     .rangeBands([0, x0.rangeBand()]);
 
-var x0 = d3.scale.ordinal()
-    .domain(d3.range(n))
-    .rangeBands([0, width], .2);
+     var xAxis = d3.svg.axis()
+     .scale(xlabels)
+     .orient("bottom");
 
-var x1 = d3.scale.ordinal()
-    .domain(d3.range(m))
-    .rangeBands([0, x0.rangeBand()]);
+     var yAxis = d3.svg.axis()
+     .scale(y)
+     .orient("left");
 
-var z = d3.scale.category10();
+     var chart = d3.select(".chart")
+     .attr("width", width + margin.left + margin.right)
+     .attr("height", height + margin.top + margin.bottom)
+     .append("svg:g")
+     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var xAxis = d3.svg.axis()
-    .scale(x0)
-    .orient("bottom");
+     // The y axis
+     chart.append("g")
+     .attr("class", "axis")
+     .call(yAxis)
+     .append("text")
+     .attr("transform", "rotate(-90)")
+     .attr("y", 6)
+     .attr("dy", ".71em")
+     .style("text-anchor", "end")
+     .text("Winner - Total Points Won");
 
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left");
+     // The x axis
+     chart.append("g")
+     .attr("class", "axis")
+     .attr("transform", "translate(0," + height + ")")
+     .call(xAxis);
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("svg:g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+     data = [[50,40,20,40,20,40,50,10,30,40], [34,100,20,30,40,22,10,4,30,170]];
+     chart.append("g").selectAll("g")
+     .data(data)
+     .enter().append("g")
+     .attr("transform", function(d, i) { return "translate(" + x0(i) + ",0)"; })
+     .selectAll("rect")
+     .data(function(d) { return d; })
+     .enter().append("rect")
+     .attr("width", x1.rangeBand())
+     .attr("height", function(d) { return height - y(d); })
+     .attr("x", function(d, i) { return x1(i); })
+     .attr("y", y)
+     .style("fill", function(d, i) { return color(i); });
+   });
 
-svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis);
+    function type(d) {
+      d.winner_totalPointWon = +d.winner_totalPointWon;
+      return d;
+    }
 
-svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
-
-svg.append("g").selectAll("g")
-    .data(data)
-  .enter().append("g")
-    .style("fill", function(d, i) { return z(i); })
-    .attr("transform", function(d, i) { return "translate(" + x1(i) + ",0)"; })
-  .selectAll("rect")
-    .data(function(d) { return d; })
-  .enter().append("rect")
-    .attr("width", x1.rangeBand())
-    .attr("height", y)
-    .attr("x", function(d, i) { return x0(i); })
-    .attr("y", function(d) { return height - y(d); })
-    .style("fill", function(d) { return color(d); });
-
-</script>
+  </script>
 </body>
