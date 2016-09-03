@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
-  .axis text {
+@font-face { font-family: superstar; src: url('superstar.ttf'); } 
+h1 { font-family: 'superstar', serif; color:#ffffff; }
+.axis text {
     font: 12px sans-serif;
 }
 .axis path,
@@ -11,8 +13,11 @@
 }
 </style>
 
-<body>
-  <svg class="chart"></svg>
+<body style="background:#546F50">
+  <div style="text-align:center">
+      <h1><b>US Open - Men vs Women - Winners' Total Points Won<b></h1>
+      <svg class="chart" style="background: #ffffff"></svg>
+  </div>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script>
     var n = 2, m = 10;
@@ -20,52 +25,52 @@
     var men = [];
     var women = [];
     d3.csv("usopen.csv", type, function(data) {
-     data.map(function(d){
+       data.map(function(d){
         if (d.gender === "m") {
             men.push(d.winner_totalPointWon);
         } else if (d.gender === "w") {
             women.push(d.winner_totalPointWon);
         }
     });
-     total.push(men);
-     total.push(women);
+       total.push(men);
+       total.push(women);
 
-     var margin = {top: 20, right: 30, bottom: 30, left: 40},
-     width = 960 - margin.left - margin.right,
-     height = 500 - margin.top - margin.bottom;
+       var margin = {top: 20, right: 30, bottom: 30, left: 40},
+       width = 960 - margin.left - margin.right,
+       height = 500 - margin.top - margin.bottom;
 
-     var color = d3.scale.ordinal()
-     .range(["#636363", "#5C5F61", "#555C60", "#4E595F", "#47555E", "#41525D", "#3A4F5C", "#334B5B", "#2C485A", "#254559"]);
+       var color = d3.scale.ordinal()
+       .range(["#314B78", "#F4CD5D"]);
 
-     var y = d3.scale.linear()
-     .domain([0, d3.max(data, function(d) { return d.winner_totalPointWon; })])
-     .range([height, 0]);
+       var y = d3.scale.linear()
+       .domain([0, d3.max(data, function(d) { return d.winner_totalPointWon; })])
+       .range([height, 0]);
 
-     var x0 = d3.scale.ordinal()
-     .domain(d3.range(n))
-     .rangeBands([0, width], .2);
+       var x0 = d3.scale.ordinal()
+       .domain(d3.range(n))
+       .rangeBands([0, width], .2);
 
-     var xlabels = d3.scale.ordinal()
-     .domain(["MEN", "WOMEN"])
-     .rangeBands([0, width], .2);
+       var xlabels = d3.scale.ordinal()
+       .domain(["MEN", "WOMEN"])
+       .rangeBands([0, width], .2);
 
-     var x1 = d3.scale.ordinal()
-     .domain(d3.range(m))
-     .rangeBands([0, x0.rangeBand()]);
+       var x1 = d3.scale.ordinal()
+       .domain(d3.range(m))
+       .rangeBands([0, x0.rangeBand()],0.02);
 
-     var xAxis = d3.svg.axis()
-     .scale(xlabels)
-     .orient("bottom");
+       var xAxis = d3.svg.axis()
+       .scale(xlabels)
+       .orient("bottom");
 
-     var yAxis = d3.svg.axis()
-     .scale(y)
-     .orient("left");
+       var yAxis = d3.svg.axis()
+       .scale(y)
+       .orient("left");
 
-     var chart = d3.select(".chart")
-     .attr("width", width + margin.left + margin.right)
-     .attr("height", height + margin.top + margin.bottom)
-     .append("svg:g")
-     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+       var chart = d3.select(".chart")
+       .attr("width", width + margin.left + margin.right)
+       .attr("height", height + margin.top + margin.bottom)
+       .append("svg:g")
+       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
      // The y axis
      chart.append("g")
@@ -84,6 +89,7 @@
      .attr("transform", "translate(0," + height + ")")
      .call(xAxis);
 
+     // The bars
      chart.append("g").selectAll("g")
      .data(total)
      .enter().append("g")
@@ -95,7 +101,7 @@
      .attr("height", function(d) { return height - y(d); })
      .attr("x", function(d, i) { return x1(i); })
      .attr("y", y)
-     .style("fill", function(d, i) { return color(i); });
+     .style("fill", "#314B78");
  });
 
     function type(d) {
