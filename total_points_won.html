@@ -3,12 +3,12 @@
 <style>
   .axis text {
     font: 12px sans-serif;
-  }
-  .axis path,
-  .axis line {
+}
+.axis path,
+.axis line {
     fill: none;
     stroke: #000;
-  }
+}
 </style>
 
 <body>
@@ -16,7 +16,19 @@
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script>
     var n = 2, m = 10;
+    var total = [];
+    var men = [];
+    var women = [];
     d3.csv("usopen.csv", type, function(data) {
+     data.map(function(d){
+        if (d.gender === "m") {
+            men.push(d.winner_totalPointWon);
+        } else if (d.gender === "w") {
+            women.push(d.winner_totalPointWon);
+        }
+    });
+     total.push(men);
+     total.push(women);
 
      var margin = {top: 20, right: 30, bottom: 30, left: 40},
      width = 960 - margin.left - margin.right,
@@ -72,9 +84,8 @@
      .attr("transform", "translate(0," + height + ")")
      .call(xAxis);
 
-     data = [[50,40,20,40,20,40,50,10,30,40], [34,100,20,30,40,22,10,4,30,170]];
      chart.append("g").selectAll("g")
-     .data(data)
+     .data(total)
      .enter().append("g")
      .attr("transform", function(d, i) { return "translate(" + x0(i) + ",0)"; })
      .selectAll("rect")
@@ -85,12 +96,12 @@
      .attr("x", function(d, i) { return x1(i); })
      .attr("y", y)
      .style("fill", function(d, i) { return color(i); });
-   });
+ });
 
     function type(d) {
       d.winner_totalPointWon = +d.winner_totalPointWon;
       return d;
-    }
+  }
 
-  </script>
+</script>
 </body>
