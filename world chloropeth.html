@@ -33,30 +33,45 @@
 <div id="map" style="width: 800px; height: 550px;"/>
 
 <script>
-    var map = new Datamap({
-        element: document.getElementById('map'),
-        projection: 'mercator',
-        fills: {
-            defaultFill: "#DDD",
-            6: "#CB0000",
-            5: "#DE3F01",
-            4: "#F07E02",
-            3: "#F6AB03",
-            2: "#FBD804",
-            1: "#FBF844"
-        },
-        data: {
-            SRB: { fillKey: func() },
-            CHE: { fillKey: 5 },
-            ESP: { fillKey: 4 },
-            GBR: { fillKey: 3 },
-            USA: { fillKey: 2 },
-            ARG: { fillKey: 1 }
-        }
-    });
 
-    function func() {
-        return 6;
-    }
+    var countries = {};
+    d3.csv("usopen.csv", function(data) {
+        data.map(function(d) {
+            if( d.gender === "m" ) {
+                if( countries[d.winner_country] === undefined ) {
+                    countries[d.winner_country] = 1;
+                } else { 
+                    countries[d.winner_country] = countries[d.winner_country] + 1;
+                }
+                if( countries[d.loser_country] === undefined ) {
+                    countries[d.loser_country] = 1;
+                } else { 
+                    countries[d.loser_country] = countries[d.loser_country] + 1;
+                }
+            }
+        });
+
+        var countriesFillData = {};
+        for (var key in countries) {
+          if (countries.hasOwnProperty(key)) {
+            countriesFillData[key] = { fillKey: countries[key] };
+          }
+        }
+
+        var map = new Datamap({
+            element: document.getElementById('map'),
+            projection: 'mercator',
+            fills: {
+                defaultFill: "#DDD",
+                6: "#CB0000",
+                5: "#DE3F01",
+                4: "#F07E02",
+                3: "#F6AB03",
+                2: "#FBD804",
+                1: "#FBF844"
+            },
+            data: countriesFillData
+        });
+    });
 </script>
 </body>
