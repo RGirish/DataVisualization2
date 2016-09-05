@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<<head>
+<head>
     <meta charset="utf-8">
     <title></title>
     <style type="text/css" media="screen">
     body {
         background: #131e30;
     }
+    @font-face { font-family: numbers; src: url('numbers.ttf'); }
+
+    svg {
+        font-family: numbers, sans-serif;
+    }
+    h1 {
+        font-size: 2em;
+        font-family: numbers, sans-serif;
+        color: #fff;
+    }
     </style>
 </head>
 <body>
-    <section id="graph"></section>
+    <section id="men">
+        <h1 style="position:relative;left:100px;top:100px;">Dominance from Men</h1>
+    </section>
+    <section id="women">
+        <h1 style="position:relative;left:100px;">Dominance from Women</h1>
+    </section>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script>
         var players = {};
@@ -29,11 +44,6 @@
                     }
                 }
             });
-            
-            /*var values = [];
-            for ( var key in players ) {
-                values.push({name: key, className: key, size: players[key]});
-            }*/
 
             var json = {"player_occurances": players};
   
@@ -42,7 +52,7 @@
     var diameter = 600;
     var color = d3.scale.category20c();
 
-    var svg = d3.select('#graph').append('svg')
+    var svg = d3.select('#men').append('svg')
                     .attr('width', diameter)
                     .attr('height', diameter);
 
@@ -53,21 +63,101 @@
   
   // generate data with calculated layout values
   var nodes = bubble.nodes(processData(json))
-                        .filter(function(d) { return !d.children; }); // filter out the outer bubble
+                        .filter(function(d) { return !d.children; }); 
  
-  var vis = svg.selectAll('circle')
+  var vis = svg.selectAll('g')
                     .data(nodes);
   
-  vis.enter().append('circle')
+  var elemEnter = vis.enter()
+        .append("g");
+
+  elemEnter.append('circle')
             .style("fill", function (d, i) { return color(i); } )
             .attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')'; })
             .attr('r', function(d) { return d.r; })
             .attr('class', function(d) { return d.className; });
+
+            elemEnter.append("text")
+        .attr("transform", function(d){return "translate("+d.x+","+d.y+")"})
+        .attr("dx", function(d){return 0})
+        .attr("dy", function(d){return 0})
+        .style("fill", "#131e30")
+        .style("font-size", "1.35em")
+        .text(function(d){return d.size;})
               
-  vis.selectAll("text").enter().append("text")
-            .attr("x", 1)
-            .text("y", 1)
-            .text("fill");
+  function processData(data) {
+    var obj = data.player_occurances;
+
+    var newDataSet = [];
+
+    for(var prop in obj) {
+      newDataSet.push({name: prop, className: prop.toLowerCase(), size: obj[prop]});
+    }
+    return {children: newDataSet};
+  }
+
+        });
+
+
+        /* WOMEN */
+
+
+        var w_players = {};
+        d3.csv("usopen.csv", function(data) {
+            data.map(function(d) {
+                if ( d.gender === "w" ) {
+                    if ( w_players[d.winner] === undefined ) {
+                        w_players[d.winner] = 1;
+                    } else { 
+                        w_players[d.winner] = w_players[d.winner] + 1;
+                    }
+                    if ( w_players[d.loser] === undefined ) {
+                        w_players[d.loser] = 1;
+                    } else { 
+                        w_players[d.loser] = w_players[d.loser] + 1;
+                    }
+                }
+            });
+
+            var json = {"player_occurances": w_players};
+  
+    // D3 Bubble Chart 
+
+    var diameter = 600;
+    var color = d3.scale.category20c();
+
+    var svg = d3.select('#women').append('svg')
+                    .attr('width', diameter)
+                    .attr('height', diameter);
+
+    var bubble = d3.layout.pack()
+                .size([diameter, diameter])
+                .value(function(d) {return d.size;})
+                .padding(3);
+  
+  // generate data with calculated layout values
+  var nodes = bubble.nodes(processData(json))
+                        .filter(function(d) { return !d.children; }); 
+ 
+  var vis = svg.selectAll('g')
+                    .data(nodes);
+  
+  var elemEnter = vis.enter()
+        .append("g");
+
+  elemEnter.append('circle')
+            .style("fill", function (d, i) { return color(i); } )
+            .attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')'; })
+            .attr('r', function(d) { return d.r; })
+            .attr('class', function(d) { return d.className; });
+
+            elemEnter.append("text")
+        .attr("transform", function(d){return "translate("+d.x+","+d.y+")"})
+        .attr("dx", function(d){return 0})
+        .attr("dy", function(d){return 0})
+        .style("fill", "#131e30")
+        .style("font-size", "1.35em")
+        .text(function(d){return d.size;})
               
   function processData(data) {
     var obj = data.player_occurances;
