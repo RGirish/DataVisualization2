@@ -1,55 +1,70 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <body>
+  <style>
+    @font-face { font-family: superstar; src: url('superstar.ttf'); } 
+    h2 { font-family: 'superstar', serif; color:#ffffff; }
+    h3 { font-family: 'superstar', serif; color:#ffffff; }
+  </style>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://d3js.org/topojson.v1.min.js"></script>
   <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>  
-  <svg class="chart" width="420" height="120" style="position:absolute;left:850px;top:10px">
+  <svg class="chart" width="420" height="160" style="position:absolute;left:850px;top:10px">
     <g transform="translate(0,0)">
+        <text x="25" y="14" font-family="sans-serif" font-size="12px" fill="dark gray">Number of Appearences</text>
+    </g>
+    <g transform="translate(0,20)">
+        <rect width="19" height="19" fill="#760000"></rect>
+        <text x="25" y="14" font-family="sans-serif" font-size="12px" fill="dark gray">7</text>
+    </g>
+    <g transform="translate(0,40)">
         <rect width="19" height="19" fill="#CB0000"></rect>
         <text x="25" y="14" font-family="sans-serif" font-size="12px" fill="dark gray">6</text>
     </g>
-    <g transform="translate(0,20)">
+    <g transform="translate(0,60)">
         <rect width="19" height="19" fill="#DE3F01"></rect>
         <text x="25" y="14" font-family="sans-serif" font-size="12px" fill="dark gray">5</text>
     </g>
-    <g transform="translate(0,40)">
+    <g transform="translate(0,80)">
         <rect width="19" height="19" fill="#F07E02"></rect>
         <text x="25" y="14" font-family="sans-serif" font-size="12px" fill="dark gray">4</text>
     </g>
-    <g transform="translate(0,60)">
+    <g transform="translate(0,100)">
         <rect width="19" height="19" fill="#F6AB03"></rect>
         <text x="25" y="14" font-family="sans-serif" font-size="12px" fill="dark gray">3</text>
     </g>
-    <g transform="translate(0,80)">
+    <g transform="translate(0,120)">
         <rect width="19" height="19" fill="#FBD804"></rect>
         <text x="25" y="14" font-family="sans-serif" font-size="12px" fill="dark gray">2</text>
     </g>
-    <g transform="translate(0,100)">
+    <g transform="translate(0,140)">
         <rect width="19" height="19" fill="#FBF844"></rect>
         <text x="25" y="14" font-family="sans-serif" font-size="12px" fill="dark gray">1</text>
     </g>
 </svg>
-<div id="map" style="width: 800px; height: 550px;"/>
+
+<h2 style="position:relative;left:100px;color:#555">US OPEN FINALISTS' COUNTRY OF ORIGIN
+<font style="position:relative;left:10px;color:#555;font-size:0.7em">2006 - 2015</font></h2>
+
+<div id="map" style="top:50px; width: 800px; height: 550px;"/>
 
 <script>
 
     var countries = {};
     d3.csv("usopen.csv", function(data) {
         data.map(function(d) {
-            if( d.gender === "m" ) {
-                if( countries[d.winner_country] === undefined ) {
-                    countries[d.winner_country] = 1;
-                } else { 
-                    countries[d.winner_country] = countries[d.winner_country] + 1;
-                }
-                if( countries[d.loser_country] === undefined ) {
-                    countries[d.loser_country] = 1;
-                } else { 
-                    countries[d.loser_country] = countries[d.loser_country] + 1;
-                }
+            if( countries[d.winner_country] === undefined ) {
+                countries[d.winner_country] = 1;
+            } else { 
+                countries[d.winner_country] = countries[d.winner_country] + 1;
+            }
+            if( countries[d.loser_country] === undefined ) {
+                countries[d.loser_country] = 1;
+            } else { 
+                countries[d.loser_country] = countries[d.loser_country] + 1;
             }
         });
+        console.log(countries);
 
         var countriesFillData = {};
         for (var key in countries) {
@@ -63,6 +78,7 @@
             projection: 'mercator',
             fills: {
                 defaultFill: "#DDD",
+                7: "#760000",
                 6: "#CB0000",
                 5: "#DE3F01",
                 4: "#F07E02",

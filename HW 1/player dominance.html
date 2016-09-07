@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title></title>
-    <style type="text/css" media="screen">
+    <style type="text/css" media="all">
     body {
         background: #131e30;
     }
@@ -17,14 +17,21 @@
         font-family: numbers, sans-serif;
         color: #fff;
     }
+    h4 {
+        font-size: 1.4em;
+        font-family: numbers, sans-serif;
+        color: #999;
+    }
     </style>
 </head>
 <body>
     <section id="men">
-        <h1 style="position:relative;left:100px;top:100px;">Dominance from Men</h1>
+        <h1 style="position:relative;left:100px;top:70px;">US OPEN Finals . Dominance Statistics for Men</h1>
+        <h4 style="position:relative;left:100px;top:70px;" id="menTotal"></h4>
     </section>
     <section id="women">
-        <h1 style="position:relative;left:100px;">Dominance from Women</h1>
+        <h1 style="position:relative;left:100px;top:50px;">US OPEN Finals . Dominance Statistics for Women</h1>
+        <h4 style="position:relative;left:100px;top:70px;" id="womenTotal"></h4>
     </section>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script>
@@ -43,6 +50,7 @@
                         players[d.loser] = players[d.loser] + 1;
                     }
                 }
+                document.getElementById("menTotal").innerText = Object.keys(players).length + " men in 10 years";
             });
 
             var json = {"player_occurances": players};
@@ -117,7 +125,8 @@
                         w_players[d.loser] = w_players[d.loser] + 1;
                     }
                 }
-            });
+                document.getElementById("womenTotal").innerText = Object.keys(w_players).length + " women in 10 years";
+          });
 
             var json = {"player_occurances": w_players};
   
