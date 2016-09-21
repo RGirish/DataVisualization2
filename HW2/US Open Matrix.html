@@ -5,10 +5,14 @@
         <title>DV HW 2</title>
 
         <!-- Scripts -->
-        <!--<script src="http://d3js.org/d3.v3.min.js"></script>-->
-        <script src="d3.v3.min.js" charset="utf-8"></script>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="js/d3.v3.min.js" charset="utf-8"></script>
+        <script src="js/vex.combined.min.js"></script>
+        <script>vex.defaultOptions.className = 'vex-theme-default'</script>
+        
         <!-- Styles -->
+        <link rel="stylesheet" href="css/vex.css" />
+        <link rel="stylesheet" href="css/vex-theme-default.css" />
         <style>
             @import url(css/style.css);
             .background {
@@ -18,16 +22,17 @@
                 stroke: #fff;
             }
             text.active {
-                fill: red;
+                fill: #d00;
             }
         </style>
     </head>
     <body>
+        Sort: 
         <select id="order">
+            <option value="count">by Frequency of Occurance</option>
             <option value="name">by Name</option>
-            <option value="count">by Frequency</option>
-            <option value="group">by Cluster</option>
         </select>
+        <br>
         <script type="text/javascript">
             var names = [], nodes = [], links = [], matrixData = {};
             d3.csv("data/data.csv", function(data) {
@@ -44,7 +49,7 @@
                 for (var i = 0; i < names.length; i++) {
                     var node = {};
                     node["name"] = names[i];
-                    node["group"] = "1";
+                    node["group"] = "20";
                     nodes.push(node);
                 }
 
@@ -62,7 +67,7 @@
                 matrixData["nodes"] = nodes;
                 matrixData["links"] = links;
 
-                var margin = {top: 80, right: 0, bottom: 10, left: 80},
+                var margin = {top: 140, right: 500, bottom: 200, left: 140},
                     width = 3600,
                     height = 3600;
 
@@ -85,11 +90,8 @@
                     matrix[i] = d3.range(n).map(function(j) { return {x: j, y: i, z: 0}; });
                 });
 
-                links.forEach(function(link){
+                links.forEach(function(link) {
                     matrix[link.source][link.target].z += link.value;
-                    matrix[link.target][link.source].z += link.value;
-                    matrix[link.source][link.source].z += link.value;
-                    matrix[link.target][link.target].z += link.value;
                     nodes[link.source].count += link.value;
                     nodes[link.target].count += link.value;
                 });
@@ -102,7 +104,7 @@
                 };
 
                 // The default sort order.
-                x.domain(orders.name);
+                x.domain(orders.count);
 
                 svg.append("rect")
                       .attr("class", "background")
@@ -142,6 +144,17 @@
                     .attr("text-anchor", "start")
                     .text(function(d, i) { return nodes[i].name; });
 
+                var tooltip = d3.select("body")
+                        .append("div")
+                        .style("background", "#fff")
+                        .style("border", "2px black")
+                        .style("padding", "20px")
+                        .style("position", "absolute")
+                        .style("box-shadow", "0px 3px 2px #ccc")
+                        .style("z-index", "10")
+                        .style("visibility", "hidden")
+                        .text("a simple tooltip");
+
                 function row(row) {
                     var cell = d3.select(this).selectAll(".cell")
                         .data(row.filter(function(d) { return d.z; }))
@@ -151,47 +164,54 @@
                         .attr("width", x.rangeBand())
                         .attr("height", x.rangeBand())
                         .style("fill-opacity", function(d) { return z(d.z); })
-                        .style("fill", function(d) { return nodes[d.x].group == nodes[d.y].group ? c(nodes[d.x].group) : null; });
+                        .style("fill", function(d) { return nodes[d.x].group == nodes[d.y].group ? c(nodes[d.x].group) : null; })
+                        .on("mouseover", mouseover)
+                        .on("mousemove", mousemove)
+                        .on("mouseout", mouseout)
+                        .on("click", click);
                 }
 
-                /*d3.json(matrixData, function(miserables) {
-
-                  function mouseover(p) {
+                function mouseover(p) {
+                    tooltip.style("visibility", "visible");
+                    tooltip.text(names[p.y] + " vs " + names[p.x] + " - Total Meetings: " + (matrix[p.x][p.y].z + matrix[p.y][p.x].z) + ". "  + names[p.y] + " has won " + p.z + " of them.");
                     d3.selectAll(".row text").classed("active", function(d, i) { return i == p.y; });
                     d3.selectAll(".column text").classed("active", function(d, i) { return i == p.x; });
-                  }
+                }
 
-                  function mouseout() {
+                function mousemove() {
+                    tooltip.style("top", (event.pageY)+"px").style("left",(event.pageX)+"px");
+                }
+
+                function mouseout() {
+                    tooltip.style("visibility", "hidden");
                     d3.selectAll("text").classed("active", false);
-                  }
+                }
 
-                  d3.select("#order").on("change", function() {
-                    clearTimeout(timeout);
+                function click() {
+                    tooltip.style("visibility", "hidden");
+                    d3.selectAll("text").classed("active", false);
+                    vex.dialog.alert('Thanks for checking out vex!')
+                }
+
+                d3.select("#order").on("change", function() {
                     order(this.value);
-                  });
+                });
 
-                  function order(value) {
+                function order(value) {
                     x.domain(orders[value]);
-
-                    var t = svg.transition().duration(2500);
+                    var t = svg.transition().duration(100);
 
                     t.selectAll(".row")
                         .delay(function(d, i) { return x(i) * 4; })
                         .attr("transform", function(d, i) { return "translate(0," + x(i) + ")"; })
-                      .selectAll(".cell")
+                        .selectAll(".cell")
                         .delay(function(d) { return x(d.x) * 4; })
                         .attr("x", function(d) { return x(d.x); });
 
                     t.selectAll(".column")
                         .delay(function(d, i) { return x(i) * 4; })
                         .attr("transform", function(d, i) { return "translate(" + x(i) + ")rotate(-90)"; });
-                  }
-
-                  var timeout = setTimeout(function() {
-                      order("group");
-                      d3.select("#order").property("selectedIndex", 2).node().focus();
-                    }, 5000); 
-                  });*/
+                }
             });
         </script>
     </body>
