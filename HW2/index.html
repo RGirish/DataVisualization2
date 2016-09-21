@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>DV HW 2</title>
+
+        <!-- Scripts -->
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            var names = [], nodes = [], links = [], matrixData = {};
+            d3.csv("data.csv", function(data) {
+                data.map(function(d) {
+                    if ( names.indexOf(d.player1) === -1 ) {
+                        names.push(d.player1);
+                    }
+                    if ( names.indexOf(d.player2) === -1 ) {
+                        names.push(d.player2);
+                    }
+                });
+                names.sort();
+                for (var i = 0; i < names.length; i++) {
+                    var node = {};
+                    node["name"] = names[i];
+                    node["group"] = "1";
+                    nodes.push(node);
+                }
+                // console.log(nodes);
+                data.map(function(d) {
+                    var player1 = d.player1, player2 = d.player2;
+                    var player1Index = names.indexOf(player1);
+                    var player2Index = names.indexOf(player2);
+                    var link = {};
+                    link["source"] = player1Index;
+                    link["target"] = player2Index;
+                    link["value"] = 1;
+                    links.push(link);
+                });
+                // console.log(links);
+
+                matrixData["nodes"] = nodes;
+                matrixData["links"] = links;
+                console.log(matrixData);
+            });
+        </script>
+    </body>
+</html>
