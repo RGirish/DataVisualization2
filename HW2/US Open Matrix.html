@@ -7,11 +7,7 @@
         <!-- Scripts -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="http://d3js.org/d3.v3.min.js"></script>
-        
-        <!-- External Styles -->
-        <link rel="stylesheet" href="css/vex.css" />
-        <link rel="stylesheet" href="css/vex-theme-default.css" />
-        
+
         <!-- For the Matrix -->
         <style type="text/css">
             @import url(css/style.css);
@@ -74,18 +70,11 @@
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">x</span>
-                <h1>Hello There</h1>
-                <h1>Hello There</h1>
-                <h1>Hello There</h1>
-                <h1>Hello There</h1>
-                <h1>Hello There</h1>
-                <h1>Hello There</h1>
-                <h1>Hello There</h1>
-                <h1>Hello There</h1>
-                <h1>Hello There</h1>
-                <h1>Hello There</h1>
-                <h1>Hello There</h1>
-                <a href="#dummy">Yo, click me</a><br><br><br><br><br><br><br><br>
+                <h3><font name="winner"></font> has played <font name="loser"></font> <font name="total_times" style="font-size:1.3em;color:gray"></font> time(s) in the US Open so far and has won <font name="winner_times" style="font-size:1.3em;color:#339966"></font> of those.</h3>
+                <font style="font-size:1.7em;font-weight:bold">Encounters favoring <font name="winner" style="font-size:1.3em;color:#339966"></font> : </font><font id="encounters"></font>
+                <br><br>
+                <u><h3>Stats aggregate for these matches</h3></u>
+
             </div>
         </div>
 
@@ -269,7 +258,30 @@
                     tooltip.style("visibility", "hidden");
                     d3.selectAll("text").classed("active", false);
                     modal.style.display = "block";
-                    // vex.dialog.alert("<h1>Heading</h1><div><a href=\"#dummy\">Click me</a></div>")
+                    var winner = document.getElementsByName("winner");
+                    var loser = document.getElementsByName("loser");
+                    var winner_times = document.getElementsByName("winner_times");
+                    var total_times = document.getElementsByName("total_times");
+                    for (var i = 0; i < winner.length; i++) {
+                        winner[i].innerHTML = names[p.y];
+                    }
+                    loser[0].innerHTML = names[p.x];
+                    winner_times[0].innerHTML = matrix[p.y][p.x].z;
+                    total_times[0].innerHTML = matrix[p.y][p.x].z + matrix[p.x][p.y].z;
+
+                    d3.csv("data/data.csv", function(data) {
+                        data = data.filter(function(d) { return ( d.player1 == names[p.y] && d.player2 == names[p.x] ); });
+                        var encounters = document.getElementById("encounters");
+                        var years = [];
+                        if(data.length > 1) {
+                            data.map(function(d) {
+                                years.push("<a href=\"#yo\" style=\"color:black;font-size:1.5em\">" + d.year + "</a>");
+                            });
+                        } else { 
+                            years.push("<font style=\"color:black;font-size:1.5em\">" + data[0].year + "</font>");
+                        }
+                        encounters.innerHTML = years.sort();
+                    });
                 }
 
                 d3.select("#order").on("change", function() {
