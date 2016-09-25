@@ -152,7 +152,7 @@
         for (var i = 0; i < names.length; i++) {
             var node = {};
             node["name"] = names[i];
-            node["group"] = "20";
+            node["group"] = "2";
             nodes.push(node);
         }
 
@@ -381,12 +381,15 @@
                     years.push("<font style=\"color:black;font-size:1.5em\">" + data[0].year + "</font>");
                 }
                 encounters.innerHTML = years.sort();
-                var total_f_1 = 0, total_f_2 = 0, total_s_1 = 0, total_s_2 = 0;
+                var total_f_1 = 0,
+                    total_f_2 = 0,
+                    total_s_1 = 0,
+                    total_s_2 = 0;
                 data.map(function(d) {
-                    total_f_1 += +(d.firstPointWon1.substring(0,2));
-                    total_f_2 += +(d.firstPointWon2.substring(0,2));
-                    total_s_1 += +(d.secPointWon1.substring(0,2));
-                    total_s_2 += +(d.secPointWon2.substring(0,2));
+                    total_f_1 += +(d.firstPointWon1.substring(0, 2));
+                    total_f_2 += +(d.firstPointWon2.substring(0, 2));
+                    total_s_1 += +(d.secPointWon1.substring(0, 2));
+                    total_s_2 += +(d.secPointWon2.substring(0, 2));
                 });
                 var values1 = [(total_f_1 / data.length).toFixed(2), (total_s_1 / data.length).toFixed(2)];
                 var values2 = [(total_f_2 / data.length).toFixed(2), (total_s_2 / data.length).toFixed(2)];
