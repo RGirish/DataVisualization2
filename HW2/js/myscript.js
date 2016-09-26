@@ -44,6 +44,8 @@ d3.csv("data/data.csv", function(data) {
 
     /*********************/
 
+
+
     /* Set up the Modal Dialog Box */
     var modal = document.getElementById('myModal');
     var span = document.getElementsByClassName("close")[0];
@@ -228,9 +230,15 @@ d3.csv("data/data.csv", function(data) {
         for (var i = 0; i < winner.length; i++) {
             winner[i].innerHTML = names[p.y];
         }
-        loser[0].innerHTML = names[p.x];
-        winner_times[0].innerHTML = matrix[p.y][p.x].z;
-        total_times[0].innerHTML = matrix[p.y][p.x].z + matrix[p.x][p.y].z;
+        for (var i = 0; i < loser.length; i++) {
+            loser[i].innerHTML = names[p.x];
+        }
+        for (var i = 0; i < winner_times.length; i++) {
+            winner_times[i].innerHTML = matrix[p.y][p.x].z;
+        }
+        for (var i = 0; i < total_times.length; i++) {
+            total_times[i].innerHTML = matrix[p.y][p.x].z + matrix[p.x][p.y].z;
+        }
 
         d3.csv("data/data.csv", function(data) {
             data = data.filter(function(d) {
@@ -260,6 +268,19 @@ d3.csv("data/data.csv", function(data) {
             var values1 = [(total_f_1 / data.length).toFixed(2), (total_s_1 / data.length).toFixed(2)];
             var values2 = [(total_f_2 / data.length).toFixed(2), (total_s_2 / data.length).toFixed(2)];
             drawBarChart(names[p.y], names[p.x], values1, values2);
+
+            fillTheTableUp(data);
+        });
+    }
+
+    function fillTheTableUp(data) {
+        var t_firstserve1, t_firstserve2, t_ace1, t_ace2, t_double1, t_double2, t_firstpointwon1, t_firstpointwon2, t_secpointwon1, t_secpointwon2
+        t_fastserve1, t_fastserve2, t_avgfirstserve1, t_avgfirstserve2, t_avgsecserve1, t_avgsecserve2, t_break1, t_break2, t_return1, t_return2,
+        t_total1, t_total2, t_winner1, t_winner2, t_error1, t_error2, t_net1, t_net2;
+
+        data.map(function(d) {
+            document.getElementsByName("country1")[0].innerHTML = d.country1;
+            document.getElementsByName("country2")[0].innerHTML = d.country2;
         });
     }
 
