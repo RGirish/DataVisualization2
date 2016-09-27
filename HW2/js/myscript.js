@@ -246,13 +246,9 @@ d3.csv("data/data.csv", function(data) {
             });
             var encounters = document.getElementById("encounters");
             var years = [];
-            if (data.length > 1) {
-                data.map(function(d) {
-                    years.push("<a href=\"#yo\" style=\"color:black;font-size:1.5em\">" + d.year + "</a>");
-                });
-            } else {
-                years.push("<font style=\"color:black;font-size:1.5em\">" + data[0].year + "</font>");
-            }
+            data.map(function(d) {
+                years.push("<font style=\"color:black;font-size:1.5em\">" + d.year + "</font>");
+            });
             encounters.innerHTML = years.sort();
             var total_f_1 = 0,
                 total_f_2 = 0,
@@ -396,6 +392,49 @@ d3.csv("data/data.csv", function(data) {
             var bar_win_width = ((matrix[p.x][p.y].z * 100) / (matrix[p.y][p.x].z + matrix[p.x][p.y].z)).toFixed(2) + "%";
             document.getElementsByName("bar_winner_times")[0].setAttribute("width", bar_win_width);
             document.getElementsByName("bar_loser_times")[0].setAttribute("width", bar_win_width);
+
+            document.getElementsByName("bar_firstserve1")[0].setAttribute("width", (100 - firstserve1) + "%");
+            document.getElementsByName("bar_firstserve2")[0].setAttribute("width", firstserve2 + "%");
+
+            document.getElementsByName("bar_firstpointwon1")[0].setAttribute("width", (100 - firstpointwon1) + "%");
+            document.getElementsByName("bar_firstpointwon2")[0].setAttribute("width", firstpointwon2 + "%");
+
+            document.getElementsByName("bar_secpointwon1")[0].setAttribute("width", (100 - secpointwon1) + "%");
+            document.getElementsByName("bar_secpointwon2")[0].setAttribute("width", secpointwon2 + "%");
+
+            document.getElementsByName("bar_break1")[0].setAttribute("width", (100 - break1) + "%");
+            document.getElementsByName("bar_break2")[0].setAttribute("width", break2 + "%");
+
+            document.getElementsByName("bar_return1")[0].setAttribute("width", (100 - return1) + "%");
+            document.getElementsByName("bar_return2")[0].setAttribute("width", return2 + "%");
+
+            document.getElementsByName("bar_net1")[0].setAttribute("width", (100 - net1) + "%");
+            document.getElementsByName("bar_net2")[0].setAttribute("width", net2 + "%");
+
+            document.getElementsByName("bar_ace1")[0].setAttribute("width", (t_ace2 * 100 / (t_ace1 + t_ace2)).toFixed(2) + "%");
+            document.getElementsByName("bar_ace2")[0].setAttribute("width", (t_ace2 * 100 / (t_ace1 + t_ace2)).toFixed(2) + "%");
+
+            document.getElementsByName("bar_double1")[0].setAttribute("width", (t_double2 * 100 / (t_double1 + t_double2)).toFixed(2) + "%");
+            document.getElementsByName("bar_double2")[0].setAttribute("width", (t_double2 * 100 / (t_double1 + t_double2)).toFixed(2) + "%");
+
+            document.getElementsByName("bar_total1")[0].setAttribute("width", (t_total2 * 100 / (t_total1 + t_total2)).toFixed(2) + "%");
+            document.getElementsByName("bar_total2")[0].setAttribute("width", (t_total2 * 100 / (t_total1 + t_total2)).toFixed(2) + "%");
+
+            document.getElementsByName("bar_winner1")[0].setAttribute("width", (t_winner2 * 100 / (t_winner1 + t_winner2)).toFixed(2) + "%");
+            document.getElementsByName("bar_winner2")[0].setAttribute("width", (t_winner2 * 100 / (t_winner1 + t_winner2)).toFixed(2) + "%");
+
+            document.getElementsByName("bar_error1")[0].setAttribute("width", (t_error2 * 100 / (t_error1 + t_error2)).toFixed(2) + "%");
+            document.getElementsByName("bar_error2")[0].setAttribute("width", (t_error2 * 100 / (t_error1 + t_error2)).toFixed(2) + "%");
+
+            document.getElementsByName("bar_fastserve1")[0].setAttribute("width", ((fastserve2 * 100) / ((+fastserve1) + (+fastserve2))).toFixed(2) + "%");
+            document.getElementsByName("bar_fastserve2")[0].setAttribute("width", ((fastserve2 * 100) / ((+fastserve1) + (+fastserve2))).toFixed(2) + "%");
+
+            document.getElementsByName("bar_avgfirstserve1")[0].setAttribute("width", ((avgfirstserve2 * 100) / ((+avgfirstserve1) + (+avgfirstserve2))).toFixed(2) + "%");
+            document.getElementsByName("bar_avgfirstserve2")[0].setAttribute("width", ((avgfirstserve2 * 100) / ((+avgfirstserve1) + (+avgfirstserve2))).toFixed(2) + "%");
+
+            document.getElementsByName("bar_avgsecserve1")[0].setAttribute("width", ((avgsecserve2 * 100) / ((+avgsecserve1) + (+avgsecserve2))).toFixed(2) + "%");
+            document.getElementsByName("bar_avgsecserve2")[0].setAttribute("width", ((avgsecserve2 * 100) / ((+avgsecserve1) + (+avgsecserve2))).toFixed(2) + "%");
+
         });
     }
 
