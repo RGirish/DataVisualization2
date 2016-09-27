@@ -244,7 +244,6 @@ d3.csv("data/data.csv", function(data) {
             data = data.filter(function(d) {
                 return (d.player1 == names[p.y] && d.player2 == names[p.x]);
             });
-            console.log(JSON.stringify(data));
             var encounters = document.getElementById("encounters");
             var years = [];
             if (data.length > 1) {
@@ -346,34 +345,57 @@ d3.csv("data/data.csv", function(data) {
                 t_error1 += (+(d.error1));
                 t_error2 += (+(d.error2));
             });
-            document.getElementsByName("firstServe1")[0].innerHTML = (t_firstserve1 / data.length).toFixed(2) + "%";
-            document.getElementsByName("firstServe2")[0].innerHTML = (t_firstserve2 / data.length).toFixed(2) + "%";
+            var firstserve1 = (t_firstserve1 / data.length).toFixed(2);
+            var firstserve2 = (t_firstserve2 / data.length).toFixed(2);
+            var firstpointwon1 = (t_firstpointwon1 / data.length).toFixed(2);
+            var firstpointwon2 = (t_firstpointwon2 / data.length).toFixed(2);
+            var secpointwon1 = (t_secpointwon1 / data.length).toFixed(2);
+            var secpointwon2 = (t_secpointwon2 / data.length).toFixed(2);
+            var fastserve1 = (t_fastserve1 / data.length).toFixed(2);
+            var fastserve2 = (t_fastserve2 / data.length).toFixed(2);
+            var avgfirstserve1 = (t_avgfirstserve1 / data.length).toFixed(2);
+            var avgfirstserve2 = (t_avgfirstserve2 / data.length).toFixed(2);
+            var avgsecserve1 = (t_avgsecserve1 / data.length).toFixed(2);
+            var avgsecserve2 = (t_avgsecserve2 / data.length).toFixed(2);
+            var break1 = (t_break1 / data.length).toFixed(2);
+            var break2 = (t_break2 / data.length).toFixed(2);
+            var return1 = (t_return1 / data.length).toFixed(2);
+            var return2 = (t_return2 / data.length).toFixed(2);
+            var net1 = (t_net1 / data.length).toFixed(2);
+            var net2 = (t_net2 / data.length).toFixed(2);
+            document.getElementsByName("firstServe1")[0].innerHTML = firstserve1 + "%";
+            document.getElementsByName("firstServe2")[0].innerHTML = firstserve2 + "%";
             document.getElementsByName("ace1")[0].innerHTML = t_ace1;
             document.getElementsByName("ace2")[0].innerHTML = t_ace2;
             document.getElementsByName("double1")[0].innerHTML = t_double1;
             document.getElementsByName("double2")[0].innerHTML = t_double2;
-            document.getElementsByName("firstPointWon1")[0].innerHTML = (t_firstpointwon1 / data.length).toFixed(2) + "%";
-            document.getElementsByName("firstPointWon2")[0].innerHTML = (t_firstpointwon2 / data.length).toFixed(2) + "%";
-            document.getElementsByName("secPointWon1")[0].innerHTML = (t_secpointwon1 / data.length).toFixed(2) + "%";
-            document.getElementsByName("secPointWon2")[0].innerHTML = (t_secpointwon2 / data.length).toFixed(2) + "%";
-            document.getElementsByName("fastServe1")[0].innerHTML = (t_fastserve1 / data.length).toFixed(2) + " mph";
-            document.getElementsByName("fastServe2")[0].innerHTML = (t_fastserve2 / data.length).toFixed(2) + " mph";
-            document.getElementsByName("avgFirstServe1")[0].innerHTML = (t_avgfirstserve1 / data.length).toFixed(2) + " mph";
-            document.getElementsByName("avgFirstServe2")[0].innerHTML = (t_avgfirstserve2 / data.length).toFixed(2) + " mph";
-            document.getElementsByName("avgSecServe1")[0].innerHTML = (t_avgsecserve1 / data.length).toFixed(2) + " mph";
-            document.getElementsByName("avgSecServe2")[0].innerHTML = (t_avgsecserve2 / data.length).toFixed(2) + " mph";
-            document.getElementsByName("break1")[0].innerHTML = (t_break1 / data.length).toFixed(2) + "%";
-            document.getElementsByName("break2")[0].innerHTML = (t_break2 / data.length).toFixed(2) + "%";
-            document.getElementsByName("return1")[0].innerHTML = (t_return1 / data.length).toFixed(2) + "%";
-            document.getElementsByName("return2")[0].innerHTML = (t_return2 / data.length).toFixed(2) + "%";
-            document.getElementsByName("net1")[0].innerHTML = (t_net1 / data.length).toFixed(2) + "%";
-            document.getElementsByName("net2")[0].innerHTML = (t_net2 / data.length).toFixed(2) + "%";
+            document.getElementsByName("firstPointWon1")[0].innerHTML = firstpointwon1 + "%";
+            document.getElementsByName("firstPointWon2")[0].innerHTML = firstpointwon2 + "%";
+            document.getElementsByName("secPointWon1")[0].innerHTML = secpointwon1 + "%";
+            document.getElementsByName("secPointWon2")[0].innerHTML = secpointwon2 + "%";
+            document.getElementsByName("fastServe1")[0].innerHTML = fastserve1 + " mph";
+            document.getElementsByName("fastServe2")[0].innerHTML = fastserve2 + " mph";
+            document.getElementsByName("avgFirstServe1")[0].innerHTML = avgfirstserve1 + " mph";
+            document.getElementsByName("avgFirstServe2")[0].innerHTML = avgfirstserve2 + " mph";
+            document.getElementsByName("avgSecServe1")[0].innerHTML = avgsecserve1 + " mph";
+            document.getElementsByName("avgSecServe2")[0].innerHTML = avgsecserve2 + " mph";
+            document.getElementsByName("break1")[0].innerHTML = break1 + "%";
+            document.getElementsByName("break2")[0].innerHTML = break2 + "%";
+            document.getElementsByName("return1")[0].innerHTML = return1 + "%";
+            document.getElementsByName("return2")[0].innerHTML = return2 + "%";
+            document.getElementsByName("net1")[0].innerHTML = net1 + "%";
+            document.getElementsByName("net2")[0].innerHTML = net2 + "%";
             document.getElementsByName("total1")[0].innerHTML = t_total1;
             document.getElementsByName("total2")[0].innerHTML = t_total2;
             document.getElementsByName("winner1")[0].innerHTML = t_winner1;
             document.getElementsByName("winner2")[0].innerHTML = t_winner2;
             document.getElementsByName("error1")[0].innerHTML = t_error1;
             document.getElementsByName("error2")[0].innerHTML = t_error2;
+
+            /* Draw the bars inside the table */
+            var bar_win_width = ((matrix[p.x][p.y].z * 100) / (matrix[p.y][p.x].z + matrix[p.x][p.y].z)).toFixed(2) + "%";
+            document.getElementsByName("bar_winner_times")[0].setAttribute("width", bar_win_width);
+            document.getElementsByName("bar_loser_times")[0].setAttribute("width", bar_win_width);
         });
     }
 

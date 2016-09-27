@@ -37,7 +37,8 @@
     
     th,
     td {
-        padding: 15px;
+        padding-top: 15px;
+        padding-bottom: 15px;
     }
     </style>
     <link rel="stylesheet" type="text/css" href="css/modal.css" />
@@ -64,7 +65,7 @@
             <hr style="width:80%" />
             <br/>
             <br/>
-            <table cellpadding="10">
+            <table>
                 <tr>
                     <td><img src="img/player1.jpg" width=100 height=100/></td>
                     <td><img src="img/player2.jpg" width=100 height=100/></td>
@@ -102,23 +103,35 @@
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Won</font>
                         <br/>
                         <font style="font-size:1.7em" name="winner_times"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px;background-color:#1F77B4">
+                            <rect name="bar_winner_times" height=20 fill="#fff"></rect>
+                        </svg>
                     </td>
                     <td>
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Won</font>
                         <br/>
                         <font style="font-size:1.7em" name="loser_times"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px">
+                            <rect name="bar_loser_times" height=20 fill="#FF7F0E"></rect>
+                        </svg>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <font style="font-weight:bold;color:#999;font-size:0.9em">Average First Serve</font>
+                        <font style="font-weight:bold;color:#999;font-size:0.9em">First Serve</font>
                         <br/>
                         <font style="font-size:1.7em" name="firstServe1"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px;background-color:#1F77B4">
+                            <rect name="bar_firstserve1" height=20 fill="#fff"></rect>
+                        </svg>
                     </td>
                     <td>
-                        <font style="font-weight:bold;color:#999;font-size:0.9em">Average First Serve</font>
+                        <font style="font-weight:bold;color:#999;font-size:0.9em">First Serve</font>
                         <br/>
                         <font style="font-size:1.7em" name="firstServe2"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px">
+                            <rect name="bar_firstserve2" height=20 fill="#FF7F0E"></rect>
+                        </svg>
                     </td>
                 </tr>
                 <tr>
@@ -126,11 +139,17 @@
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Total Aces</font>
                         <br/>
                         <font style="font-size:1.7em" name="ace1"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px;background-color:#1F77B4">
+                            <rect name="bar_aces1" height=20 fill="#fff"></rect>
+                        </svg>
                     </td>
                     <td>
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Total Aces</font>
                         <br/>
                         <font style="font-size:1.7em" name="ace2"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px">
+                            <rect name="bar_aces2" height=20 fill="#FF7F0E"></rect>
+                        </svg>
                     </td>
                 </tr>
                 <tr>
@@ -138,11 +157,17 @@
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Total Double Faults</font>
                         <br/>
                         <font style="font-size:1.7em" name="double1"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px;background-color:#1F77B4">
+                            <rect name="bar_double1" height=20 fill="#fff"></rect>
+                        </svg>
                     </td>
                     <td>
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Total Double Faults</font>
                         <br/>
                         <font style="font-size:1.7em" name="double2"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px">
+                            <rect name="bar_double2" height=20 fill="#FF7F0E"></rect>
+                        </svg>
                     </td>
                 </tr>
                 <tr>
@@ -150,11 +175,17 @@
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Average First Point Won</font>
                         <br/>
                         <font style="font-size:1.7em" name="firstPointWon1"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px;background-color:#1F77B4">
+                            <rect name="bar_firstpointwon1" height=20 fill="#fff"></rect>
+                        </svg>
                     </td>
                     <td>
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Average First Point Won</font>
                         <br/>
                         <font style="font-size:1.7em" name="firstPointWon2"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px">
+                            <rect name="bar_firstpointwon2" height=20 fill="#FF7F0E"></rect>
+                        </svg>
                     </td>
                 </tr>
                 <tr>
@@ -162,11 +193,17 @@
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Average Second Point Won</font>
                         <br/>
                         <font style="font-size:1.7em" name="secPointWon1"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px;background-color:#1F77B4">
+                            <rect name="bar_secpointwon1" height=20 fill="#fff"></rect>
+                        </svg>
                     </td>
                     <td>
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Average Second Point Won</font>
                         <br/>
                         <font style="font-size:1.7em" name="secPointWon2"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px">
+                            <rect name="bar_secpointwon2" height=20 fill="#FF7F0E"></rect>
+                        </svg>
                     </td>
                 </tr>
                 <tr>
@@ -174,11 +211,17 @@
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Average Fast Serve</font>
                         <br/>
                         <font style="font-size:1.7em" name="fastServe1"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px;background-color:#1F77B4">
+                            <rect name="bar_firstserve1" height=20 fill="#fff"></rect>
+                        </svg>
                     </td>
                     <td>
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Average Fast Serve</font>
                         <br/>
                         <font style="font-size:1.7em" name="fastServe2"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px">
+                            <rect name="bar_fastserve2" height=20 fill="#FF7F0E"></rect>
+                        </svg>
                     </td>
                 </tr>
                 <tr>
@@ -186,11 +229,17 @@
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Average First Serve</font>
                         <br/>
                         <font style="font-size:1.7em" name="avgFirstServe1"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px;background-color:#1F77B4">
+                            <rect name="bar_avgfirstserve1" height=20 fill="#fff"></rect>
+                        </svg>
                     </td>
                     <td>
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Average First Serve</font>
                         <br/>
                         <font style="font-size:1.7em" name="avgFirstServe2"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px">
+                            <rect name="bar_avgfirstserve2" height=20 fill="#FF7F0E"></rect>
+                        </svg>
                     </td>
                 </tr>
                 <tr>
@@ -198,11 +247,17 @@
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Average Second Serve</font>
                         <br/>
                         <font style="font-size:1.7em" name="avgSecServe1"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px;background-color:#1F77B4">
+                            <rect name="bar_avgsecserve1" height=20 fill="#fff"></rect>
+                        </svg>
                     </td>
                     <td>
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Average Second Serve</font>
                         <br/>
                         <font style="font-size:1.7em" name="avgSecServe2"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px">
+                            <rect name="bar_avgsecserve2" height=20 fill="#FF7F0E"></rect>
+                        </svg>
                     </td>
                 </tr>
                 <tr>
@@ -210,11 +265,17 @@
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Average Break</font>
                         <br/>
                         <font style="font-size:1.7em" name="break1"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px;background-color:#1F77B4">
+                            <rect name="bar_break1" height=20 fill="#fff"></rect>
+                        </svg>
                     </td>
                     <td>
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Average Break</font>
                         <br/>
                         <font style="font-size:1.7em" name="break2"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px">
+                            <rect name="bar_break2" height=20 fill="#FF7F0E"></rect>
+                        </svg>
                     </td>
                 </tr>
                 <tr>
@@ -222,11 +283,17 @@
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Average Return</font>
                         <br/>
                         <font style="font-size:1.7em" name="return1"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px;background-color:#1F77B4">
+                            <rect name="bar_return1" height=20 fill="#fff"></rect>
+                        </svg>
                     </td>
                     <td>
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Average Return</font>
                         <br/>
                         <font style="font-size:1.7em" name="return2"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px">
+                            <rect name="bar_return2" height=20 fill="#FF7F0E"></rect>
+                        </svg>
                     </td>
                 </tr>
                 <tr>
@@ -234,11 +301,17 @@
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Total Points Won</font>
                         <br/>
                         <font style="font-size:1.7em" name="total1"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px;background-color:#1F77B4">
+                            <rect name="bar_total1" height=20 fill="#fff"></rect>
+                        </svg>
                     </td>
                     <td>
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Total Points Won</font>
                         <br/>
                         <font style="font-size:1.7em" name="total2"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px">
+                            <rect name="bar_total2" height=20 fill="#FF7F0E"></rect>
+                        </svg>
                     </td>
                 </tr>
                 <tr>
@@ -246,11 +319,17 @@
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Total Winner</font>
                         <br/>
                         <font style="font-size:1.7em" name="winner1"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px;background-color:#1F77B4">
+                            <rect name="bar_winner1" height=20 fill="#fff"></rect>
+                        </svg>
                     </td>
                     <td>
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Total Winner</font>
                         <br/>
                         <font style="font-size:1.7em" name="winner2"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px">
+                            <rect name="bar_winner2" height=20 fill="#FF7F0E"></rect>
+                        </svg>
                     </td>
                 </tr>
                 <tr>
@@ -258,11 +337,17 @@
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Total Error</font>
                         <br/>
                         <font style="font-size:1.7em" name="error1"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px;background-color:#1F77B4">
+                            <rect name="bar_error1" height=20 fill="#fff"></rect>
+                        </svg>
                     </td>
                     <td>
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Total Error</font>
                         <br/>
                         <font style="font-size:1.7em" name="error2"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px">
+                            <rect name="bar_error2" height=20 fill="#FF7F0E"></rect>
+                        </svg>
                     </td>
                 </tr>
                 <tr>
@@ -270,11 +355,17 @@
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Average Net</font>
                         <br/>
                         <font style="font-size:1.7em" name="net1"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px;background-color:#1F77B4">
+                            <rect name="bar_avgnet1" height=20 fill="#fff"></rect>
+                        </svg>
                     </td>
                     <td>
                         <font style="font-weight:bold;color:#999;font-size:0.9em">Average Net</font>
                         <br/>
                         <font style="font-size:1.7em" name="net2"></font>
+                        <svg style="margin-top:10px;width:100%;height:20px">
+                            <rect name="bar_avgnet2" height=20 fill="#FF7F0E"></rect>
+                        </svg>
                     </td>
                 </tr>
             </table>
