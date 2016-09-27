@@ -269,18 +269,111 @@ d3.csv("data/data.csv", function(data) {
             var values2 = [(total_f_2 / data.length).toFixed(2), (total_s_2 / data.length).toFixed(2)];
             drawBarChart(names[p.y], names[p.x], values1, values2);
 
-            fillTheTableUp(data);
-        });
-    }
+            /* Fill the Table Up */
+            var t_firstserve1 = 0,
+                t_firstserve2 = 0,
+                t_ace1 = 0,
+                t_ace2 = 0,
+                t_double1 = 0,
+                t_double2 = 0,
+                t_firstpointwon1 = 0,
+                t_firstpointwon2 = 0,
+                t_secpointwon1 = 0,
+                t_secpointwon2 = 0,
+                t_fastserve1 = 0,
+                t_fastserve2 = 0,
+                t_avgfirstserve1 = 0,
+                t_avgfirstserve2 = 0,
+                t_avgsecserve1 = 0,
+                t_avgsecserve2 = 0,
+                t_break1 = 0,
+                t_break2 = 0,
+                t_return1 = 0,
+                t_return2 = 0,
+                t_total1 = 0,
+                t_total2 = 0,
+                t_winner1 = 0,
+                t_winner2 = 0,
+                t_error1 = 0,
+                t_error2 = 0,
+                t_net1 = 0,
+                t_net2 = 0;
 
-    function fillTheTableUp(data) {
-        var t_firstserve1, t_firstserve2, t_ace1, t_ace2, t_double1, t_double2, t_firstpointwon1, t_firstpointwon2, t_secpointwon1, t_secpointwon2
-        t_fastserve1, t_fastserve2, t_avgfirstserve1, t_avgfirstserve2, t_avgsecserve1, t_avgsecserve2, t_break1, t_break2, t_return1, t_return2,
-        t_total1, t_total2, t_winner1, t_winner2, t_error1, t_error2, t_net1, t_net2;
+            var loser_times = document.getElementsByName("loser_times")[0].innerHTML = matrix[p.x][p.y].z;
+            data.map(function(d) {
+                document.getElementsByName("country1")[0].innerHTML = d.country1;
+                document.getElementsByName("country2")[0].innerHTML = d.country2;
 
-        data.map(function(d) {
-            document.getElementsByName("country1")[0].innerHTML = d.country1;
-            document.getElementsByName("country2")[0].innerHTML = d.country2;
+                t_firstserve1 += (+(d.firstServe1.substring(0, d.firstServe1.length - 1)));
+                t_firstserve2 += (+(d.firstServe2.substring(0, d.firstServe2.length - 1)));
+
+                t_firstpointwon1 += (+(d.firstPointWon1.substring(0, d.firstPointWon1.length - 1)));
+                t_firstpointwon2 += (+(d.firstPointWon2.substring(0, d.firstPointWon2.length - 1)));
+
+                t_secpointwon1 += (+(d.secPointWon1.substring(0, d.secPointWon1.length - 1)));
+                t_secpointwon2 += (+(d.secPointWon2.substring(0, d.secPointWon2.length - 1)));
+
+                t_break1 += (+(d.break1.substring(0, d.break1.length - 1)));
+                t_break2 += (+(d.break2.substring(0, d.break2.length - 1)));
+
+                t_return1 += (+(d.return1.substring(0, d.return1.length - 1)));
+                t_return2 += (+(d.return2.substring(0, d.return2.length - 1)));
+
+                t_net1 += (+(d.net1.substring(0, d.net1.length - 1)));
+                t_net2 += (+(d.net2.substring(0, d.net2.length - 1)));
+
+                t_ace1 += (+(d.ace1));
+                t_ace2 += (+(d.ace2));
+
+                t_double1 += (+(d.double1));
+                t_double2 += (+(d.double2));
+
+                t_fastserve1 += (+(d.fastServe1));
+                t_fastserve2 += (+(d.fastServe2));
+
+                t_avgfirstserve1 += (+(d.avgFirstServe1));
+                t_avgfirstserve2 += (+(d.avgFirstServe2));
+
+                t_avgsecserve1 += (+(d.avgSecServe1));
+                t_avgsecserve2 += (+(d.avgSecServe2));
+
+                t_total1 += (+(d.total1));
+                t_total2 += (+(d.total2));
+
+                t_winner1 += (+(d.winner1));
+                t_winner2 += (+(d.winner2));
+
+                t_error1 += (+(d.error1));
+                t_error2 += (+(d.error2));
+            });
+            document.getElementsByName("firstServe1")[0].innerHTML = (t_firstserve1 / data.length).toFixed(2) + "%";
+            document.getElementsByName("firstServe2")[0].innerHTML = (t_firstserve2 / data.length).toFixed(2) + "%";
+            document.getElementsByName("ace1")[0].innerHTML = t_ace1;
+            document.getElementsByName("ace2")[0].innerHTML = t_ace2;
+            document.getElementsByName("double1")[0].innerHTML = t_double1;
+            document.getElementsByName("double2")[0].innerHTML = t_double2;
+            document.getElementsByName("firstPointWon1")[0].innerHTML = (t_firstpointwon1 / data.length).toFixed(2) + "%";
+            document.getElementsByName("firstPointWon2")[0].innerHTML = (t_firstpointwon2 / data.length).toFixed(2) + "%";
+            document.getElementsByName("secPointWon1")[0].innerHTML = (t_secpointwon1 / data.length).toFixed(2) + "%";
+            document.getElementsByName("secPointWon2")[0].innerHTML = (t_secpointwon2 / data.length).toFixed(2) + "%";
+            document.getElementsByName("fastServe1")[0].innerHTML = (t_fastserve1 / data.length).toFixed(2) + " mph";
+            document.getElementsByName("fastServe2")[0].innerHTML = (t_fastserve2 / data.length).toFixed(2) + " mph";
+            document.getElementsByName("avgFirstServe1")[0].innerHTML = (t_avgfirstserve1 / data.length).toFixed(2) + " mph";
+            document.getElementsByName("avgFirstServe2")[0].innerHTML = (t_avgfirstserve2 / data.length).toFixed(2) + " mph";
+            document.getElementsByName("avgSecServe1")[0].innerHTML = (t_avgsecserve1 / data.length).toFixed(2) + " mph";
+            document.getElementsByName("avgSecServe2")[0].innerHTML = (t_avgsecserve2 / data.length).toFixed(2) + " mph";
+            document.getElementsByName("break1")[0].innerHTML = (t_break1 / data.length).toFixed(2) + "%";
+            document.getElementsByName("break2")[0].innerHTML = (t_break2 / data.length).toFixed(2) + "%";
+            document.getElementsByName("return1")[0].innerHTML = (t_return1 / data.length).toFixed(2) + "%";
+            document.getElementsByName("return2")[0].innerHTML = (t_return2 / data.length).toFixed(2) + "%";
+            document.getElementsByName("net1")[0].innerHTML = (t_net1 / data.length).toFixed(2) + "%";
+            document.getElementsByName("net2")[0].innerHTML = (t_net2 / data.length).toFixed(2) + "%";
+            document.getElementsByName("total1")[0].innerHTML = t_total1;
+            document.getElementsByName("total2")[0].innerHTML = t_total2;
+            document.getElementsByName("winner1")[0].innerHTML = t_winner1;
+            document.getElementsByName("winner2")[0].innerHTML = t_winner2;
+            document.getElementsByName("error1")[0].innerHTML = t_error1;
+            document.getElementsByName("error2")[0].innerHTML = t_error2;
         });
     }
 
