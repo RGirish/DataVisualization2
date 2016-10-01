@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>DV HW 2</title>
+    <title>CSE 591 - Data Visualization - HW 2 - Interactive Visualization</title>
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -20,7 +20,8 @@
     }
     
     text.active {
-        fill: #d00;
+        fill: #444;
+        font-weight: bold;
     }
     
     table,
@@ -59,7 +60,6 @@
             <br/>
             <br/>
             <svg class="chart"></svg>
-            <h4 style="color:#888">Values are averages for all the matches listed above, and in %.</h4>
             <br/>
             <br/>
             <hr style="width:80%" />
@@ -380,6 +380,11 @@
         <option value="count">by Frequency of Occurance</option>
         <option value="name">by Name</option>
     </select>
+    <br>
+    <br>
+    <font style="color:#00aa00">Player Name in Green</font> - the player as the winner</font>
+    <br>
+    <font style="color:#aa0000">Player Name in Red</font> - the player as the loser</font>
     <br/>
 </body>
 

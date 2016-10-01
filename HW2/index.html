@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CSE 591 - Data Visualization - HW 2 - Interactive Visualization</title>
+    <style>
+    body {
+        font-family: monospace;
+        background: #8dca8d;
+    }
+    
+    a:link {
+        color: black;
+    }
+    
+    a:visited {
+        color: black;
+    }
+    
+    a:hover {
+        color: black;
+    }
+    
+    a:active {
+        color: black;
+    }
+    
+    .center {
+        text-align: center;
+    }
+    
+    .plate {
+        padding: 20px;
+        margin: 0 auto;
+        background: white;
+        -moz-box-shadow: inset 0 0 10px #000000;
+        -webkit-box-shadow: inset 0 0 10px #000000;
+        box-shadow: inset 0 0 10px #000000;
+        width: 80%;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="center">
+        <br>
+        <h1>CSE 591 DATA VISUALIZATION HW 2</h1>
+        <h2>Girish Raman - 1208967327</h2>
+        <i><font style="color:#600"><b style="font-size:1.2em">NOTE:</b> Does not work with Firefox. Please use Chrome and a localhost server like <a href="http://www.wampserver.com/en/">WAMP</a> for Windows or <a href="https://www.mamp.info/en/downloads/">MAMP</a> for Macs.</font></i>
+        <br>
+        <br>
+        <a target="_blank" style="font-size:1.5em;color:#600" href="US%20Open%20Matrix.html">VIEW THE VISUALIZATION HERE</a>
+        <br>
+        <br>
+        <div class="plate">
+            <h1><u>US Open Head to Head Statistics - Men</u></h1>
+            <p>I have created a Matrix Diagram to depict the head to head statistics of each player with respect to any other player. My idea was to create an interactive visualization that will be able to help someone find the head to head statistics of any 2 players, given the dataset of all matches played so far in the history of US Open.</p>
+            <p>I came across of a couple of visualization options for this story. I came down to 2 options - an interactive <a href="https://bost.ocks.org/mike/uberdata/">Chord Diagram</a> or a Matrix Diagram. The reason I chose the Matrix Diagram over the Chord Diagram is that with the huge dataset that we have, the number of players is about 370, and having those many components in a Chord Diagram will just lead to a chaotic visualization.
+            </p>
+            <p>The viz lists all the player names in the left in green (as winners) and at the top in red (as losers). If the 2 players have played against each other, the ij-th cell in the Matrix will be colored green. The transparency of the cell's fill color is used to indicate the weight - how many times the winner has won against the loser so far - if it's dark, the player in green has won a lot against the player in red.</p>
+            <h3>Types of interactions</h3>
+            <b>></b> Hovering over any of the colored cells displays a pop-up dialog that gives a gist of the head to head between the 2 players.
+            <br><b>></b> Clicking any of the colored cells will open a bigger dialog box that gives the head to head statistics.
+            <br><b>></b> Another form of interactivity is given by the drop-down list at the top that can be used to sort the matrix rows and columns - either by the frequency of occurrence of players in US Open or by the player's name.
+            <h3>One more level of visualization</h3>
+            <p>When a cell is clicked, you can see the complete head to head statistics for the matches that the player in green has won. First, you get to see a Grouped Bar Chart for the 2 players using 2 variables - First Point Won and Second Point Won. <b><i><u>A Story:</u></i></b> It turns out that for most of the cases, the winner always has the First Point Won and the Second Point Won to be higher than that of the loser. Then you can see a table of comparison for all the variables in the dataset.</p>
+            <h3>Where will this viz be useful? </h3>
+            <p>The sorting enables the user to view the data in the order that (s)he wants. Sometimes, having the top players at the start might be helpful, and sometimes, the alphabetical order of players might be helpful (may be, in finding a not-so-famous player). Viewing this kind of a head to head statistics would prove to be helpful in a lot of ways - may be to calculate the odds against or in favor of a player for a future match, or to quickly study the history of any player, both as a winner and as a loser, and so on.</p>
+            <p>This interactive visualization serves as a very useful tool to strip a huge dataset into chunks and visualize each chunk separately, and also get a bigger picture of the entire dataset by viewing the relationship between any 2 players.</p>
+        </div>
+        <br>
+        <br> 
+        <a href="gallery.html">Click Here to view a Gallery of the Viz</a>
+        <br>
+        <br> References: <a target="_blank" href="https://bost.ocks.org/mike/miserables/">Les Miserables Co-occurrence</a>, <a target="_blank" href="http://bl.ocks.org/erikvullings/51cc5332439939f1f292">Grouped horizontal bar chart.</a>
+        <br>
+        <br>
+    </div>
+</body>
+
+</html>

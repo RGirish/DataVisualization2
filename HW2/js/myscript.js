@@ -137,6 +137,7 @@ d3.csv("data/data.csv", function(data) {
         .attr("y", x.rangeBand() / 2)
         .attr("dy", ".32em")
         .attr("text-anchor", "end")
+        .attr("fill", "#00aa00")
         .text(function(d, i) {
             return nodes[i].name;
         });
@@ -157,6 +158,7 @@ d3.csv("data/data.csv", function(data) {
         .attr("y", x.rangeBand() / 2)
         .attr("dy", ".32em")
         .attr("text-anchor", "start")
+        .attr("fill", "#aa0000")
         .text(function(d, i) {
             return nodes[i].name;
         });
@@ -244,6 +246,7 @@ d3.csv("data/data.csv", function(data) {
             data = data.filter(function(d) {
                 return (d.player1 == names[p.y] && d.player2 == names[p.x]);
             });
+            console.log("fastServe1 " + data[0].fastServe1 + " fastServe2 " + data[0].fastServe2);
             var encounters = document.getElementById("encounters");
             var years = [];
             data.map(function(d) {
